@@ -8,29 +8,23 @@ public class Player {
 	
 	public static final  String DISCONNECTED_TOKEN = "0000";
 	
-	public static final int BANNED = -1;
-	public static final int INITIAL = 0;
-	public static final int ASKED = 1;
-	public static final int ALLOWED = 2;
-	public static final int ADMIN = 3;
-	
 	private @Id String username;
 	private String token;
-	private int autorisation;
+	private Autorisation autorisation;
 	
 	public Player() {}
 	
-	public Player(String username, String token, int autorisation) {
+	public Player(String username, String token, Autorisation autorisation) {
 		setUsername(username);
 		setToken(token);
 		setAutorisation(autorisation);
 	}
 	
 	public Player(String username) {
-		this(username,DISCONNECTED_TOKEN, 0);
+		this(username,DISCONNECTED_TOKEN, Autorisation.INITIAL);
 	}
 	
-	public Player(String username, int autorisation) {
+	public Player(String username, Autorisation autorisation) {
 		this(username, DISCONNECTED_TOKEN, autorisation);
 	}
 	
@@ -46,10 +40,10 @@ public class Player {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public int getAutorisation() {
+	public Autorisation getAutorisation() {
 		return autorisation;
 	}
-	public void setAutorisation(int autorisation) {
+	public void setAutorisation(Autorisation autorisation) {
 		this.autorisation = autorisation;
 	}
 	public void setDisconnected() {
@@ -61,4 +55,7 @@ public class Player {
 		return "Player [username=" + username + ", token=" + token + ", autorisation=" + autorisation + "]";
 	}
 	
+	public boolean isAdmin() {
+		return this.autorisation.equals(Autorisation.ADMIN);
+	}
 }
