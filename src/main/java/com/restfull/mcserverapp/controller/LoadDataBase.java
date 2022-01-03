@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.restfull.mcserverapp.bean.Autorisation;
 import com.restfull.mcserverapp.bean.Player;
 import com.restfull.mcserverapp.dao.PlayerRepository;
 
@@ -22,7 +23,7 @@ public class LoadDataBase {
 	CommandLineRunner initDatabase(PlayerRepository repository) {
 		return args -> {
 			admins.forEach(element -> {
-				log.info("Preloading " + repository.save(new Player(element, Player.ADMIN)));
+				log.info("Preloading " + repository.save(new Player(element, Autorisation.ADMIN)));
 			});
 		};
 	}
