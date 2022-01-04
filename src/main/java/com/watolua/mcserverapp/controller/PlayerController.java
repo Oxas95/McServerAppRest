@@ -1,4 +1,4 @@
-package com.restfull.mcserverapp.controller;
+package com.watolua.mcserverapp.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfull.mcserverapp.bean.Autorisation;
-import com.restfull.mcserverapp.bean.Player;
-import com.restfull.mcserverapp.dao.PlayerRepository;
-import com.restfull.mcserverapp.notfound.Exception.PlayerNotFoundException;
+import com.watolua.mcserverapp.bean.Access;
+import com.watolua.mcserverapp.bean.Player;
+import com.watolua.mcserverapp.dao.PlayerRepository;
+import com.watolua.mcserverapp.notfound.exception.PlayerNotFoundException;
 
 @RestController
 public class PlayerController {
@@ -44,7 +44,7 @@ public class PlayerController {
 	
 	@PostMapping("/player")
 	ResponseEntity<?> newPlayer(@RequestBody Player player) {
-		player.setAutorisation(Autorisation.INITIAL);
+		player.setAccess(Access.INITIAL);
 		EntityModel<Player> entityModel = assembler.toModel(repository.save(player));
 		return ResponseEntity
 				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -52,17 +52,22 @@ public class PlayerController {
 	}
 	
 	@GetMapping("/player/{username}")
-	EntityModel<Player> one(@PathVariable String username) {
+	ResponseEntity<?> one(@PathVariable String username) {
 		Player player = repository.findById(username)
 				.orElseThrow(() -> new PlayerNotFoundException(username));
-		return assembler.toModel(player);
+		EntityModel<Player> entityModel = assembler.toModel(player);
+
+		return ResponseEntity //
+		      .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+		      .body(entityModel);
+
 	}
 	
 	@PutMapping("/player/{username}")
-	ResponseEntity<?> replacePlayer(@RequestBody Player player, @RequestParam(value = "username") String username) {
+	ResponseEntity<?> replacePlayer(@RequestBody Player player, @PathVariable String username) {
 		Player updatedPlayer = repository.findById(username)
 				.map( element -> {
-					element.setAutorisation(player.getAutorisation());
+					element.setAccess(player.getAccess());
 					return repository.save(element);
 				}).orElseGet( () -> {
 					return repository.save(player);
@@ -70,7 +75,7 @@ public class PlayerController {
 		
 		EntityModel<Player> entityModel = assembler.toModel(updatedPlayer);
 
-		  return ResponseEntity //
+		return ResponseEntity //
 		      .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
 		      .body(entityModel);
 	}

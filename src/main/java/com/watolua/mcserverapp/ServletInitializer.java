@@ -1,4 +1,4 @@
-package com.restfull.mcserverapp;
+package com.watolua.mcserverapp;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

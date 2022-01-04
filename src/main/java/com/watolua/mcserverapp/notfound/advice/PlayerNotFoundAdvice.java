@@ -1,11 +1,11 @@
-package com.restfull.mcserverapp.notfound.advice;
+package com.watolua.mcserverapp.notfound.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.restfull.mcserverapp.notfound.Exception.PlayerNotFoundException;
+import com.watolua.mcserverapp.notfound.exception.PlayerNotFoundException;
 
 public class PlayerNotFoundAdvice {
 	@ResponseBody

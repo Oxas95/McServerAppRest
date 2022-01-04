@@ -1,4 +1,4 @@
-package com.restfull.mcserverapp.bean;
+package com.watolua.mcserverapp.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,22 +10,22 @@ public class Player {
 	
 	private @Id String username;
 	private String token;
-	private Autorisation autorisation;
+	private Access access;
 	
 	public Player() {}
 	
-	public Player(String username, String token, Autorisation autorisation) {
+	public Player(String username, String token, Access access) {
 		setUsername(username);
 		setToken(token);
-		setAutorisation(autorisation);
+		setAccess(access);
 	}
 	
 	public Player(String username) {
-		this(username,DISCONNECTED_TOKEN, Autorisation.INITIAL);
+		this(username,DISCONNECTED_TOKEN, Access.INITIAL);
 	}
 	
-	public Player(String username, Autorisation autorisation) {
-		this(username, DISCONNECTED_TOKEN, autorisation);
+	public Player(String username, Access access) {
+		this(username, DISCONNECTED_TOKEN, access);
 	}
 	
 	public String getUsername() {
@@ -40,11 +40,11 @@ public class Player {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public Autorisation getAutorisation() {
-		return autorisation;
+	public Access getAccess() {
+		return access;
 	}
-	public void setAutorisation(Autorisation autorisation) {
-		this.autorisation = autorisation;
+	public void setAccess(Access access) {
+		this.access = access;
 	}
 	public void setDisconnected() {
 		setToken(DISCONNECTED_TOKEN);
@@ -52,10 +52,10 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		return "Player [username=" + username + ", token=" + token + ", autorisation=" + autorisation + "]";
+		return "Player [username=" + username + ", token=" + token + ", access=" + access + "]";
 	}
 	
 	public boolean isAdmin() {
-		return this.autorisation.equals(Autorisation.ADMIN);
+		return this.access.equals(Access.ADMIN);
 	}
 }

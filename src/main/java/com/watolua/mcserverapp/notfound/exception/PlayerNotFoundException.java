@@ -1,4 +1,4 @@
-package com.restfull.mcserverapp.notfound.Exception;
+package com.watolua.mcserverapp.notfound.exception;
 
 @SuppressWarnings("serial")
 public class PlayerNotFoundException extends RuntimeException {
