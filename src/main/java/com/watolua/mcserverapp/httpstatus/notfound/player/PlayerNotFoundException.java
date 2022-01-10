@@ -1,4 +1,4 @@
-package com.watolua.mcserverapp.notfound.exception;
+package com.watolua.mcserverapp.httpstatus.notfound.player;
 
 @SuppressWarnings("serial")
 public class PlayerNotFoundException extends RuntimeException {

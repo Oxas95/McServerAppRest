@@ -58,4 +58,8 @@ public class Player {
 	public boolean isAdmin() {
 		return this.access.equals(Access.ADMIN);
 	}
+	
+	public boolean isAllowed() {
+		return this.access.getAccessLevel() >= Access.ALLOWED.getAccessLevel();
+	}
 }
